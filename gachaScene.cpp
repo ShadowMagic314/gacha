@@ -17,7 +17,8 @@ void singleGacha(struct gachaScene* s)
 
 void gachaSceneDraw(struct gachaScene* s)
 {
-	putimage(0, 0, s->bk);
+	putimage(0, 0, s->bk1);
+	putimage(0, 0, s->bk2);
 
 	s->singleBtn->super.draw((sprite*)s->singleBtn);
 }
@@ -53,8 +54,10 @@ void gachaSceneInit(struct gachaScene* s)
 	s->super.control = (void (*)(struct scene*, ExMessage*))gachaSceneControl;
 	s->super.isQuit = (bool (*)(struct scene*))gachaSceneIsQuit;
 
-	s->bk = new IMAGE;
-	loadimage(s->bk, "asset/image/bk.jpg");
+	s->bk1 = new IMAGE;
+	loadimage(s->bk1, "asset/image/bk1.jpg");
+	s->bk2 = new IMAGE;
+	loadimage(s->bk2, "asset/image/bk2.jpg");
 
 	s->videoSingleToGold = (struct video*)malloc(sizeof(struct video));
 	videoInit(s->videoSingleToGold,"asset/video/singleToGold","asset/sounds/sound.wma",177,30);
@@ -71,7 +74,9 @@ void gachaSceneInit(struct gachaScene* s)
 
 void gachaSceneDestroy(struct gachaScene* s)
 {
-	delete s->bk;
+	delete s->bk1;
+	delete s->bk2;
+
 	videoDestroy(s->videoSingleToGold);
 	videoDestroy(s->videoSingleToPurple);
 	videoDestroy(s->videoSingleToBlue);

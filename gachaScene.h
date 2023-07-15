@@ -6,7 +6,8 @@
 struct gachaScene {
 	struct scene super;
 
-	IMAGE* bk;
+	IMAGE* bk1;
+	IMAGE* bk2;
 	
 	video* videoSingleToGold;
 	video* videoSingleToPurple;
