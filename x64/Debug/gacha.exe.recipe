@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\software\vs2022\project\gacha\x64\Debug\gacha.exe</FullPath>
+      <FullPath>D:\software\vs2022\public-project\gacha\x64\Debug\gacha.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

@@ -1,2 +1,10 @@
-﻿  gachaScene.cpp
-  gacha.vcxproj -> D:\software\vs2022\project\gacha\x64\Debug\gacha.exe
+﻿  btn.cpp
+  gachaScene.cpp
+  gameloop.cpp
+  image.cpp
+  main.cpp
+  vector.cpp
+  video.cpp
+  正在生成代码...
+  LINK : 没有找到 D:\software\vs2022\public-project\gacha\x64\Debug\gacha.exe 或上一个增量链接没有生成它；正在执行完全链接
+  gacha.vcxproj -> D:\software\vs2022\public-project\gacha\x64\Debug\gacha.exe
