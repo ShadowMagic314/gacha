@@ -2,13 +2,14 @@
 #include"scene.h"
 #include"btn.h"
 #include"video.h"
+#include"image.h"
 
 struct gachaScene {
 	struct scene super;
 
 	IMAGE* bk1;
 	IMAGE* bk2;
-	
+
 	video* videoSingleToGold;
 	video* videoSingleToPurple;
 	video* videoSingleToBlue;

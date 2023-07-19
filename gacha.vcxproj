@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="btn.h" />
     <ClInclude Include="gachaScene.h" />
+    <ClInclude Include="gameData.h" />
     <ClInclude Include="gameloop.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="scene.h" />
@@ -31,6 +32,7 @@
   <ItemGroup>
     <ClCompile Include="btn.cpp" />
     <ClCompile Include="gachaScene.cpp" />
+    <ClCompile Include="gameData.cpp" />
     <ClCompile Include="gameloop.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="main.cpp" />

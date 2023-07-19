@@ -2,7 +2,7 @@
 
 void btnDraw(struct btn* b)
 {
-	putTransparentImage(b->super.x, b->super.y, b->mask, b->img);
+	putTransparentImage_mask(b->super.x, b->super.y, b->mask, b->img);
 }
 
 void btnUpdate(struct btn* b)

@@ -36,8 +36,11 @@
     <ClInclude Include="vector.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="video.h">
+    <ClInclude Include="gameData.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="video.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +63,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="video.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gameData.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

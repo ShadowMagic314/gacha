@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<easyx.h>
 #include"gachaScene.h"
+#include"gameData.h"
 #include"gameloop.h"
 #include<time.h>
 
@@ -12,10 +13,15 @@ int main()
 	setbkcolor(WHITE);
 	cleardevice();
 	//start here
+	struct gameData gamedata;
+	gameDataInit(&gamedata);
+
 	struct gachaScene gachascene;
 	gachaSceneInit(&gachascene);
 	gameLoop((scene*)&gachascene,60);
 	gachaSceneDestroy(&gachascene);
+
+	gameDataDestroy(&gamedata);
 	//end
 	char __FOR_STOP__ = getchar();
 	closegraph();

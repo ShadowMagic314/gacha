@@ -1,4 +1,13 @@
 #include"gachaScene.h"
+#define GOLD_NUM 4
+#define PURPLE_NUM 4
+
+void OutGold(struct gachaScene* s)
+{
+	int m = 1;
+	int n = GOLD_NUM;
+	int r = rand() % (n - m) + m;
+}
 
 void singleGacha(struct gachaScene* s)
 {
