@@ -10,7 +10,7 @@
 
 struct characterDatabase {
 	const char* fiveStarCharacterName[FIVESTARCHARACTERNUM] = { "ø…¿Ú","…∞Ã«","‘ÁË÷","÷”¿Î", };
-	const char* fourStarCharacterName[FOURSTARCHARACTERNUM] = { "∞≤≤Æ","µœ¬¨øÀ","∆ﬂ∆ﬂ","œ„¡‚", };
+	const char* fourStarCharacterName[FOURSTARCHARACTERNUM] = { "∞≤∞ÿ","µœ¬¨øÀ","∆ﬂ∆ﬂ","œ„¡‚", };
 
 	const int fiveStarCharacterNum = FIVESTARCHARACTERNUM;
 	const int fourStarCharacterNum = FOURSTARCHARACTERNUM;

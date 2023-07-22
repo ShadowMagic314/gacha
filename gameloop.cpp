@@ -1,6 +1,6 @@
 #include"gameloop.h"
 
-void gameLoop(struct scene* s, int fps)
+void gameLoop(struct scene* s, int fps, struct gameData* gd)
 {
 	timeBeginPeriod(1);
 	LARGE_INTEGER startCount, endCount, F;
@@ -12,10 +12,10 @@ void gameLoop(struct scene* s, int fps)
 		QueryPerformanceCounter(&startCount);
 		cleardevice();
 
-		s->draw(s);
-		s->update(s);
+		s->draw(s,gd);
+		s->update(s,gd);
 
-		if (s->isQuit(s)) {
+		if (s->isQuit(s,gd)) {
 			break;
 		}
 		FlushBatchDraw();
@@ -25,7 +25,7 @@ void gameLoop(struct scene* s, int fps)
 			Sleep(1);
 			ExMessage msg;
 			if (peekmessage(&msg, EX_MOUSE)) {
-				s->control(s, &msg);
+				s->control(s, &msg,gd);
 			}
 			QueryPerformanceCounter(&endCount);
 			elapse = (endCount.QuadPart - startCount.QuadPart) * 1000000 / F.QuadPart;

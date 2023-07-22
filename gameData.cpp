@@ -15,10 +15,10 @@ void gameDataInit(struct gameData* gd)
 	gd->load = (void (*)(struct gemeData*))gameDataLoad;
 	gd->save = (void (*)(struct gameData*))gameDataSave;
 
-	characterDatabaseInit(&gd->cdb);
+	characterDatabaseInit(&gd->characterDB);
 }
 
 void gameDataDestroy(struct gameData* gd)
 {
-	characterDatabaseDestroy(&gd->cdb);
+	characterDatabaseDestroy(&gd->characterDB);
 }

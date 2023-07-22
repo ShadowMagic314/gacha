@@ -14,15 +14,15 @@ int main()
 	setbkcolor(WHITE);
 	cleardevice();
 	//start here
-	struct gameData gamedata;
-	gameDataInit(&gamedata);
+	struct gameData gameData;
+	gameDataInit(&gameData);
 
 	struct gachaScene gachascene;
 	gachaSceneInit(&gachascene);
-	gameLoop((scene*)&gachascene,60);
+	gameLoop((scene*)&gachascene, 60, &gameData);
 	gachaSceneDestroy(&gachascene);
 
-	gameDataDestroy(&gamedata);
+	gameDataDestroy(&gameData);
 	//end
 	char __FOR_STOP__ = getchar();
 	closegraph();

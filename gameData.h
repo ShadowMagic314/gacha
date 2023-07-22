@@ -8,7 +8,7 @@ struct gameData {
 	void (*load)(struct gemeData*);
 	void (*save)(struct gameData*);
 
-	struct characterDatabase cdb;
+	struct characterDatabase characterDB;
 };
 
 void gameDataInit(struct gameData*gd);

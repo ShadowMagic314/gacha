@@ -6,7 +6,7 @@ void putTransparentImage_mask(int x, int y, const IMAGE* mask, const IMAGE* img)
 	putimage(x, y, img, SRCPAINT);
 }
 
-void putTransparentImage(IMAGE* dstimg, int x, int y, IMAGE* srcimg)
+void putTransparentImage(IMAGE* dstimg, int x, int y, IMAGE* srcimg)//第一个参数NULL
 {
     HDC dstDC = GetImageHDC(dstimg);
     HDC srcDC = GetImageHDC(srcimg);
