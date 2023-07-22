@@ -1,2 +1,1 @@
-D:\software\vs2022\project\gacha\x64\Debug\gacha.exe
 D:\software\vs2022\public-project\gacha\x64\Debug\gacha.exe

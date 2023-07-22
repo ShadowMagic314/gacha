@@ -1,11 +1,14 @@
 #pragma once
 #include"vector.h"
 
+//°üº¬µÄ´æ´¢¿â
+#include"characterDatabase.h"
+
 struct gameData {
 	void (*load)(struct gemeData*);
 	void (*save)(struct gameData*);
 
-	vector vecCharacters;
+	struct characterDatabase cdb;
 };
 
 void gameDataInit(struct gameData*gd);
