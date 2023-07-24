@@ -5,6 +5,7 @@
 #include"video.h"
 #include"image.h"
 #include"gameData.h"
+#include<conio.h>
 
 struct gachaScene {
 	struct scene super;

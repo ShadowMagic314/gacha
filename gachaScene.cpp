@@ -30,6 +30,8 @@ void outGold(struct gachaScene* s, struct gameData* gd)
 	Sleep(1000);
 
 	setbkcolor(WHITE);
+
+	gd->ownFiveStarCharacters[index] = true;
 }
 
 void outPurple(struct gachaScene* s, struct gameData* gd)
@@ -55,6 +57,8 @@ void outPurple(struct gachaScene* s, struct gameData* gd)
 	Sleep(1000);
 
 	setbkcolor(WHITE);
+
+	gd->ownFourStarCharacters[r] = true;
 }
 
 void outBlue(struct gachaScene* s, struct gameData* gd)
@@ -82,6 +86,8 @@ void outBlue(struct gachaScene* s, struct gameData* gd)
 	Sleep(1000);
 
 	setbkcolor(WHITE);
+
+	gd->exp += r;
 }
 
 void singleGacha(struct gachaScene* s, struct gameData* gd)
@@ -100,6 +106,8 @@ void singleGacha(struct gachaScene* s, struct gameData* gd)
 		s->videoSingleToBlue->play(s->videoSingleToBlue);
 		outBlue(s, gd);
 	}
+
+	gd->gachaTimes++;
 }
 
 void tenGacha(struct gachaScene* s, struct gameData* gd)
@@ -193,6 +201,56 @@ void tenGacha(struct gachaScene* s, struct gameData* gd)
 			}
 		}
 	}
+	gd->gachaTimes += 10;
+}
+
+void showRecord(struct gachaScene* s, struct gameData* gd)
+{
+	cleardevice();
+	putimage(0, 0, s->bk1);
+	settextcolor(BLACK);
+	settextstyle(100, 0, "微软雅黑");
+	setbkmode(TRANSPARENT);
+	outtextxy(800, 0, "抽卡记录");
+	outtextxy(1300, 0, "(按空格键以退出)");
+
+	char str[100];
+	settextstyle(200, 0, "微软雅黑");
+	sprintf(str, "一共抽卡%d次", gd->gachaTimes);
+	outtextxy(450, 100, str);
+
+	char strTemp[100];
+	char strName[100];
+	settextstyle(100, 0, "微软雅黑");
+
+	memset(str, 0, sizeof(str));
+	outtextxy(100, 300, "抽到的五星角色有:");
+	for (int i = 0; i < gd->characterDB.fiveStarCharacterNum; i++) {
+		if (gd->ownFiveStarCharacters[i]) {
+			sprintf(strName, "%s、", gd->characterDB.fiveStarCharacterName[i]);
+			sprintf(strTemp, "%s%s", str, strName);
+			strcpy(str, strTemp);
+		}
+	}
+	outtextxy(150, 450, str);
+
+	memset(str, 0, sizeof(str));
+	outtextxy(100, 650, "抽到的四星角色有:");
+	for (int i = 0; i < gd->characterDB.fourStarCharacterNum; i++) {
+		if (gd->ownFourStarCharacters[i]) {
+			sprintf(strName, "%s、", gd->characterDB.fourStarCharacterName[i]);
+			sprintf(strTemp, "%s%s", str, strName);
+			strcpy(str, strTemp);
+		}
+	}
+	outtextxy(150, 800, str);
+
+	memset(str, 0, sizeof(str));
+	sprintf(str, "一共获得%d经验", gd->exp);
+	outtextxy(100, 950, str);
+
+	FlushBatchDraw();
+	char CHAR_FOR_EXIT = _getch();
 }
 
 void gachaSceneDraw(struct gachaScene* s, struct gameData* gd)
@@ -216,6 +274,10 @@ void gachaSceneUpdate(struct gachaScene* s, struct gameData* gd)
 		s->isTenGacha = false;
 		tenGacha(s, gd);
 	}
+	if (s->isRecord == true) {
+		s->isRecord = false;
+		showRecord(s, gd);
+	}
 }
 
 void gachaSceneControl(struct gachaScene* s, ExMessage* msg, struct gameData* gd)
@@ -226,14 +288,19 @@ void gachaSceneControl(struct gachaScene* s, ExMessage* msg, struct gameData* gd
 				s->isSingleGacha = true;
 			}
 		}
-		else if (s->tenBtn->super.x < msg->x && msg->x < s->tenBtn->super.x + s->tenBtn->super.width) {
+		if (s->tenBtn->super.x < msg->x && msg->x < s->tenBtn->super.x + s->tenBtn->super.width) {
 			if (s->tenBtn->super.y < msg->y && msg->y < s->tenBtn->super.y + s->tenBtn->super.height) {
 				s->isTenGacha = true;
 			}
 		}
-		else if (s->closeBtn->super.x < msg->x && msg->x < s->closeBtn->super.x + s->closeBtn->super.width) {
+		if (s->closeBtn->super.x < msg->x && msg->x < s->closeBtn->super.x + s->closeBtn->super.width) {
 			if (s->closeBtn->super.y < msg->y && msg->y < s->closeBtn->super.y + s->closeBtn->super.height) {
 				s->isQuit = true;
+			}
+		}
+		else if (s->recordBtn->super.x < msg->x && msg->x < s->recordBtn->super.x + s->recordBtn->super.width) {
+			if (s->recordBtn->super.y < msg->y && msg->y < s->recordBtn->super.y + s->recordBtn->super.height) {
+				s->isRecord = true;
 			}
 		}
 	}

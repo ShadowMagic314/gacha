@@ -19,7 +19,7 @@ int main()
 
 	struct gachaScene gachascene;
 	gachaSceneInit(&gachascene);
-	gameLoop((scene*)&gachascene, 1, &gameData);
+	gameLoop((scene*)&gachascene, 30, &gameData);
 	gachaSceneDestroy(&gachascene);
 
 	gameDataDestroy(&gameData);

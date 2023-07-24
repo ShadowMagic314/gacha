@@ -16,9 +16,26 @@ void gameDataInit(struct gameData* gd)
 	gd->save = (void (*)(struct gameData*))gameDataSave;
 
 	characterDatabaseInit(&gd->characterDB);
+
+	gd->gachaTimes = 0;
+
+	gd->ownFiveStarCharacters = (bool*)malloc(sizeof(bool) * gd->characterDB.fiveStarCharacterNum);
+	if (gd->ownFiveStarCharacters == NULL) return;
+	for (int i = 0; i < gd->characterDB.fiveStarCharacterNum; i++) {
+		gd->ownFiveStarCharacters[i] = false;
+	}
+	gd->ownFourStarCharacters = (bool*)malloc(sizeof(bool) * gd->characterDB.fourStarCharacterNum);
+	if (gd->ownFourStarCharacters == NULL) return;
+	for (int i = 0; i < gd->characterDB.fourStarCharacterNum; i++) {
+		gd->ownFourStarCharacters[i] = false;
+	}
+
+	gd->exp = 0;
 }
 
 void gameDataDestroy(struct gameData* gd)
 {
 	characterDatabaseDestroy(&gd->characterDB);
+	free(gd->ownFiveStarCharacters);
+	free(gd->ownFourStarCharacters);
 }
