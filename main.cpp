@@ -19,11 +19,12 @@ int main()
 
 	struct gachaScene gachascene;
 	gachaSceneInit(&gachascene);
-	gameLoop((scene*)&gachascene, 60, &gameData);
+	gameLoop((scene*)&gachascene, 1, &gameData);
 	gachaSceneDestroy(&gachascene);
 
 	gameDataDestroy(&gameData);
 	//end
+	exit(0);
 	char __FOR_STOP__ = getchar();
 	closegraph();
 	return 0;

@@ -2,48 +2,70 @@
 
 void outGold(struct gachaScene* s, struct gameData* gd)
 {
-	s->videoSingleToGold->play(s->videoSingleToGold);
+	setbkcolor(BLACK);
+	cleardevice();
+	Sleep(500);
 
-	int m = 0;
-	int n = gd->characterDB.fiveStarCharacterNum;
-	int r = rand() % (n - m) + m;//假如有四个角色，这里r就是0、1、2、3
+	int r = rand() % 2;
+	int index = 0;
+	if (r == 0) {
+		index = 0;
+	}
+	else if (r == 1) {
+		int m = 1;
+		int n = gd->characterDB.fiveStarCharacterNum - 1;
+		index = rand() % (n - m + 1) + m;//假如有四个角色，这里index就是1、2、3
+	}
 	putimage(0, 0, s->bkout);
-	putTransparentImage(NULL, 0, 0, (IMAGE*)gd->characterDB.vecFiveStarCharacterMask.get(&gd->characterDB.vecFiveStarCharacterMask, r));
+	putTransparentImage(NULL, 0, 0, (IMAGE*)gd->characterDB.vecFiveStarCharacterMask.get(&gd->characterDB.vecFiveStarCharacterMask, index));
 	FlushBatchDraw();
 	Sleep(1000);
-	putTransparentImage(NULL, 0, 0, (IMAGE*)gd->characterDB.vecFiveStarCharacterImg.get(&gd->characterDB.vecFiveStarCharacterImg, r));
+	putTransparentImage(NULL, 0, 0, (IMAGE*)gd->characterDB.vecFiveStarCharacterImg.get(&gd->characterDB.vecFiveStarCharacterImg, index));
 
 	settextcolor(WHITE);
 	settextstyle(100, 0, "微软雅黑");
 	setbkmode(TRANSPARENT);
-	outtextxy(200, 700, gd->characterDB.fiveStarCharacterName[r]);
+	outtextxy(200, 700, gd->characterDB.fiveStarCharacterName[index]);
 	FlushBatchDraw();
 	Sleep(1000);
+
+	setbkcolor(WHITE);
 }
 
 void outPurple(struct gachaScene* s, struct gameData* gd)
 {
-	s->videoSingleToPurple->play(s->videoSingleToPurple);
+	setbkcolor(BLACK);
+	cleardevice();
+	Sleep(500);
 
 	int m = 0;
-	int n = gd->characterDB.fourStarCharacterNum;
-	int r = rand() % (n - m) + m;//假如有四个角色，这里r就是0、1、2、3
+	int n = gd->characterDB.fourStarCharacterNum - 1;
+	int r = rand() % (n - m + 1) + m;//假如有四个角色，这里r就是0、1、2、3
 	putimage(0, 0, s->bkout);
 	putTransparentImage(NULL, 0, 0, (IMAGE*)gd->characterDB.vecFourStarCharacterMask.get(&gd->characterDB.vecFourStarCharacterMask, r));
 	FlushBatchDraw();
 	Sleep(1000);
 	putTransparentImage(NULL, 0, 0, (IMAGE*)gd->characterDB.vecFourStarCharacterImg.get(&gd->characterDB.vecFourStarCharacterImg, r));
-	FlushBatchDraw();
+
+	settextcolor(WHITE);
+	settextstyle(100, 0, "微软雅黑");
+	setbkmode(TRANSPARENT);
+	outtextxy(200, 700, gd->characterDB.fourStarCharacterName[r]);
+	FlushBatchDraw(); 
 	Sleep(1000);
+
+	setbkcolor(WHITE);
 }
 
 void outBlue(struct gachaScene* s, struct gameData* gd)
 {
-	s->videoSingleToBlue->play(s->videoSingleToBlue);
+	setbkcolor(BLACK);
+	cleardevice();
+	Sleep(500);
 
 	int m = 1;
 	int n = 10;
-	int r = rand() % (n - m) + m;//经验值从1到10
+	int r = rand() % (n - m + 1) + m;//经验值从1到10
 
 	putimage(0, 0, s->bkout);
 	IMAGE* imgExp = new IMAGE;
@@ -57,31 +79,131 @@ void outBlue(struct gachaScene* s, struct gameData* gd)
 	sprintf(info, "%dEXP", r);
 	outtextxy(700, 700, info);
 	FlushBatchDraw();
-
 	Sleep(1000);
+
+	setbkcolor(WHITE);
 }
 
 void singleGacha(struct gachaScene* s, struct gameData* gd)
 {
 	int m = 1, n = 60;
 	int r = rand() % (n - m + 1) + m;//1~60
-//	if (r==1) {
+	if (r==1) {
+		s->videoSingleToGold->play(s->videoSingleToGold);
 		outGold(s, gd);
-//	}
-//	else if (1 < r && r <= 6) {
-//		outPurple(s, gd);
-//	}
-//	else {
-//		outBlue(s, gd);
-//	}
+	}
+	else if (1 < r && r <= 6) {
+		s->videoSingleToPurple->play(s->videoSingleToPurple);
+		outPurple(s, gd);
+	}
+	else {
+		s->videoSingleToBlue->play(s->videoSingleToBlue);
+		outBlue(s, gd);
+	}
+}
+
+void tenGacha(struct gachaScene* s, struct gameData* gd)
+{
+	int m = 1, n = 6;
+	int r1 = rand() % (n - m + 1) + m;//1~6
+	if (r1 == 1) {//出金
+		s->videoTenToGold->play(s->videoTenToGold);
+
+		int rank[10];
+		rank[0] = 1;//Gold
+		rank[1] = 2;//Purple
+		int flag_goldReduce = 1;
+		int flag_purpleReduce = 1;
+		for (int i = 2; i < 10; i++) {
+			int m = 1, n = 60;
+			int r2 = rand() % (n - m + 1) + m;//1~60
+			if (r2 == 1) {
+				if (flag_goldReduce) {
+					flag_goldReduce = 0;
+					i--;
+					continue;
+				}
+				rank[i] = 1;
+			}
+			else if (1 < r2 && r2 <= 6) {
+				if (flag_purpleReduce) {
+					flag_purpleReduce = 0;
+					i--;
+					continue;
+				}
+				rank[i] = 2;
+			}
+			else {
+				rank[i] = 3;
+			}
+		}
+
+		int temp;
+		for (int i = 0; i < 10; i++) {
+			int p = 0, q = 9;
+			int r3 = rand() % (q - p + 1) + p;
+			temp = rank[i];
+			rank[i] = rank[r3];
+			rank[r3] = temp;
+		}
+
+		for (int i = 0; i < 10; i++) {
+			switch (rank[i]) {
+			case 1:outGold(s, gd); break;
+			case 2:outPurple(s, gd); break;
+			case 3:outBlue(s, gd); break;
+			}
+		}
+	}
+	else {//出紫
+		s->videoTenToPurple->play(s->videoTenToPurple);
+
+		int rank[10];
+		rank[0] = 2;//Purple
+		int flag_purpleReduce = 1;
+		for (int i = 1; i < 10; i++) {
+			int m = 1, n = 60;
+			int r2 = rand() % (n - m + 1) + m;//1~60
+			if (1 <= r2 && r2 <= 6) {
+				if (flag_purpleReduce) {
+					flag_purpleReduce = 0;
+					i--;
+					continue;
+				}
+				rank[i] = 2;
+			}
+			else {
+				rank[i] = 3;
+			}
+		}
+
+		int temp;
+		for (int i = 0; i < 10; i++) {
+			int p = 0, q = 9;
+			int r3 = rand() % (q - p + 1) + p;
+			temp = rank[i];
+			rank[i] = rank[r3];
+			rank[r3] = temp;
+		}
+
+		for (int i = 0; i < 10; i++) {
+			switch (rank[i]) {
+			case 2:outPurple(s, gd); break;
+			case 3:outBlue(s, gd); break;
+			}
+		}
+	}
 }
 
 void gachaSceneDraw(struct gachaScene* s, struct gameData* gd)
 {
 	putimage(0, 0, s->bk1);
-	putimage(0, 0, s->bk2);
+	putimage(0, 80, s->bk2);
 
 	s->singleBtn->super.draw((sprite*)s->singleBtn);
+	s->tenBtn->super.draw((sprite*)s->tenBtn);
+	s->closeBtn->super.draw((sprite*)s->closeBtn);
+	s->recordBtn->super.draw((sprite*)s->recordBtn);
 }
 
 void gachaSceneUpdate(struct gachaScene* s, struct gameData* gd)
@@ -89,6 +211,10 @@ void gachaSceneUpdate(struct gachaScene* s, struct gameData* gd)
 	if (s->isSingleGacha == true) {
 		s->isSingleGacha = false;
 		singleGacha(s, gd);
+	}
+	if (s->isTenGacha == true) {
+		s->isTenGacha = false;
+		tenGacha(s, gd);
 	}
 }
 
@@ -100,12 +226,22 @@ void gachaSceneControl(struct gachaScene* s, ExMessage* msg, struct gameData* gd
 				s->isSingleGacha = true;
 			}
 		}
+		else if (s->tenBtn->super.x < msg->x && msg->x < s->tenBtn->super.x + s->tenBtn->super.width) {
+			if (s->tenBtn->super.y < msg->y && msg->y < s->tenBtn->super.y + s->tenBtn->super.height) {
+				s->isTenGacha = true;
+			}
+		}
+		else if (s->closeBtn->super.x < msg->x && msg->x < s->closeBtn->super.x + s->closeBtn->super.width) {
+			if (s->closeBtn->super.y < msg->y && msg->y < s->closeBtn->super.y + s->closeBtn->super.height) {
+				s->isQuit = true;
+			}
+		}
 	}
 }
 
 bool gachaSceneIsQuit(struct gachaScene* s, struct gameData* gd)
 {
-	return false;
+	return s->isQuit;
 }
 
 void gachaSceneInit(struct gachaScene* s)
@@ -129,10 +265,24 @@ void gachaSceneInit(struct gachaScene* s)
 	s->videoSingleToBlue = (struct video*)malloc(sizeof(struct video));
 	videoInit(s->videoSingleToBlue, "asset/video/singleToBlue", "asset/sounds/sound.wma", 177, 30);
 
+	s->videoTenToGold = (struct video*)malloc(sizeof(struct video));
+	videoInit(s->videoTenToGold, "asset/video/tenToGold", "asset/sounds/sound.wma", 177, 30);
+	s->videoTenToPurple = (struct video*)malloc(sizeof(struct video));
+	videoInit(s->videoTenToPurple, "asset/video/tenToPurple", "asset/sounds/sound.wma", 177, 30);
+
 	s->singleBtn = (struct btn*)malloc(sizeof(struct btn));
-	btnInit(s->singleBtn);
+	singleBtnInit(s->singleBtn);
+	s->tenBtn = (struct btn*)malloc(sizeof(struct btn));
+	tenBtnInit(s->tenBtn);
+	s->closeBtn = (struct btn*)malloc(sizeof(struct btn));
+	closeBtnInit(s->closeBtn);
+	s->recordBtn = (struct btn*)malloc(sizeof(struct btn));
+	recordBtnInit(s->recordBtn);
 
 	s->isSingleGacha = false;
+	s->isTenGacha = false;
+	s->isQuit = false;
+	s->isRecord = false;
 }
 
 void gachaSceneDestroy(struct gachaScene* s)
@@ -142,7 +292,23 @@ void gachaSceneDestroy(struct gachaScene* s)
 	delete s->bkout;
 
 	videoDestroy(s->videoSingleToGold);
+	free(s->videoSingleToGold);
 	videoDestroy(s->videoSingleToPurple);
+	free(s->videoSingleToPurple);
 	videoDestroy(s->videoSingleToBlue);
-	btnDestroy(s->singleBtn);
+	free(s->videoSingleToBlue);
+
+	videoDestroy(s->videoTenToGold);
+	free(s->videoTenToGold);
+	videoDestroy(s->videoTenToPurple);
+	free(s->videoTenToPurple);
+
+	singleBtnDestroy(s->singleBtn);
+	free(s->singleBtn);
+	tenBtnDestroy(s->tenBtn);
+	free(s->tenBtn);
+	closeBtnDestroy(s->closeBtn);
+	free(s->closeBtn);
+	recordBtnDestroy(s->recordBtn);
+	free(s->recordBtn);
 }

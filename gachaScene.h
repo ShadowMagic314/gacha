@@ -17,8 +17,18 @@ struct gachaScene {
 	video* videoSingleToPurple;
 	video* videoSingleToBlue;
 
+	video* videoTenToGold;
+	video* videoTenToPurple;
+
 	btn* singleBtn;
+	btn* tenBtn;
+	btn* closeBtn;
+	btn* recordBtn;
+
 	bool isSingleGacha;
+	bool isTenGacha;
+	bool isQuit;
+	bool isRecord;
 };
 
 void gachaSceneInit(struct gachaScene* s);

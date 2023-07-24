@@ -7,8 +7,16 @@ struct btn {
 	struct sprite super;
 
 	IMAGE* img;
-	IMAGE* mask;
 };
 
-void btnInit(struct btn*);
-void btnDestroy(struct btn*);
+void singleBtnInit(struct btn*);
+void singleBtnDestroy(struct btn*);
+
+void tenBtnInit(struct btn*);
+void tenBtnDestroy(struct btn*);
+
+void closeBtnInit(struct btn*);
+void closeBtnDestroy(struct btn*);
+
+void recordBtnInit(struct btn*);
+void recordBtnDestroy(struct btn*);
